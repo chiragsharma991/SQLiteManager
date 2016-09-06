@@ -1,11 +1,9 @@
 package com.example.mobilestyx.sqlitemanager;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnView;
 
     private Database db;
+    //chirag
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +41,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v)
     {
         if(v==btnSave){
-            insert();
+            if(editTextName.getText().toString().equals("")||editTextAdd.getText().toString().equals(""))
+            {
+                Toast.makeText(this,"Enter properly",Toast.LENGTH_SHORT).show();
+            }else
+            {
+                Log.e("gettext",""+editTextName.getText());
+
+                insert();
+            }
+
         }
         if(v==btnView){
             Intent intent = new Intent(this,Main2Activity.class);

@@ -1,25 +1,15 @@
 package com.example.mobilestyx.sqlitemanager;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.preference.DialogPreference;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class Main2Activity extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,6 +31,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         find();
         result();
         c= db.rawquery();
+        c.moveToFirst();
 
 
 
@@ -94,6 +85,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     private void showperson(int id)
     {
         Cursor c=db.getPerson(id);
+        Log.e("show person count",""+c.getCount());
         c.moveToFirst();
         if(c!=null)
         {
@@ -145,8 +137,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                     showresult();
 
                 }
-
-
                 break;
 
             case  R.id.btnSave:
@@ -159,11 +149,19 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 }else
                 {
                     db.update(name,add,id);
+                    c=db.rawquery();
+                    c.moveToFirst();
                     Toast.makeText(getApplicationContext(),"update sucess",Toast.LENGTH_SHORT).show();
 
                 }
+                break;
+
             case R.id.delete:
+                Log.e("under delete","log");
                 delete_from_sql();
+
+
+                break;
 
 
 
@@ -189,7 +187,18 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             {
                 String id=edittext_id.getText().toString();
                 db.delete(id);
+                edittext_id.setText("");
+                edittext_name.setText("");
+                edittext_add.setText("");
+                c=db.rawquery();
+                c.moveToFirst();
+
+
+
+
+
                 Toast.makeText(getApplicationContext()," sucess",Toast.LENGTH_SHORT).show();
+
 
 
             }

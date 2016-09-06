@@ -8,8 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.util.Log;
 
 /**
  * Created by cmpt on 6/27/2016.
@@ -77,6 +76,7 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor c = db.rawQuery("SELECT * FROM Persons", null);
+        Log.e("total cursor",""+c.getCount());
         //c.moveToFirst();
         return c;
 
@@ -88,8 +88,8 @@ public class Database extends SQLiteOpenHelper {
         // this is just '' for string only and for int  you dont have required
 
         db.execSQL(strSQL);
-        Cursor c = db.rawQuery("SELECT * FROM Persons", null);
-        c.moveToPosition(Integer.parseInt(id));
+ /*       Cursor c = db.rawQuery("SELECT * FROM Persons", null);
+        c.moveToPosition(Integer.parseInt(id));*/
 
 
     }
